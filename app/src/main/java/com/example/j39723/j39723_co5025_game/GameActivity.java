@@ -1,11 +1,17 @@
 package com.example.j39723.j39723_co5025_game;
 
+import android.content.Intent;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
+import java.util.Locale;
 import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class GameActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -16,12 +22,30 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             R.drawable.tumblr128x128, R.drawable.tumblr128x128, R.drawable.youtube128x128, R.drawable.youtube128x128};
     private Object selectedButton1 = null;
     private Object selectedButton2 = null;
+    private int time = 0;
+    private Timer timer;
+    private TextView textView;
+    private boolean startTime = true;
     // End of Variables
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
+        // FloatingActionButton used for closing Activity
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.closeFab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                timer.cancel();
+                timer.purge();
+                textView.setText(R.string.timer_text);
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intent.putExtra("EXIT", true);
+                startActivity(intent);
+            }
+        });
 
 
         //ImageButtons creation
@@ -43,6 +67,15 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         }
         //buttons[9].setEnabled(false);
         clearGrid();
+        // End of ImageButtons creation
+        textView = findViewById(R.id.timerText);
+        //Start timer and delays here
+        if (startTime){
+            time = 0;
+            startTimer();
+        }
+
+
 
 
     }
@@ -121,9 +154,12 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     public void makeMove(int i){
         buttons[i].setEnabled(false);
         buttons[i].setBackgroundResource(myImageArr[i-1]);
-        String test = Integer.toString(myImageArr[i-1]);
-        buttons[i].setTag(test);
-        //System.out.println("this is test1 " + test);
+        // Give selected button a tag for future comparison
+        String btnTag = Integer.toString(myImageArr[i-1]);
+        buttons[i].setTag(btnTag);
+        System.out.println("this is test1 " + btnTag);
+
+        // Assign tag to object for easier comparison
         if (selectedButton1 == null){
             selectedButton1 = buttons[i].getTag();
             System.out.println("this is button1 " + selectedButton1);
@@ -134,12 +170,15 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void flipBack() {
-        //Compare button image tags here or something
+        // flipBack method compares the selected buttons to see if they match or not
+        // If buttons matches, count and selectedButtons are reset to defaults
         if (selectedButton1.toString().equals(selectedButton2.toString())){
             selectedButton1 = null;
             selectedButton2 = null;
             count = 0;
+            checkEndGame();
             System.out.println("ITS EQUAL + RESET");
+        // Else selectedButtons are reset and buttons are flipped back
         } else {
             for (int i = 1; i <= 8; i++) {
                 if (selectedButton1 == buttons[i].getTag() || selectedButton2 == buttons[i].getTag()){
@@ -155,14 +194,49 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    // Start of randomize method
+    // This is to randomize 'myImageArr' Image Array to ensure the game loads it differently everytime
     public void randomize(int arr[], int n){
         Random r = new Random();
         for (int i = n-1; i>0; i--){
             int j = r.nextInt(i);
-
             int temp = arr[i];
             arr[i] = arr[j];
             arr[j] = temp;
+        }
+    }
+    // End of randomize method
+
+    // Timer Tasks from https://v4all123.blogspot.com/2013/01/timer.html
+    public void startTimer(){
+        timer = new Timer();
+        TimerTask timerTask = new TimerTask() {
+            @Override
+            public void run() {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        textView.setText(String.format(Locale.getDefault(), "%d", time));
+                        if (time >= 0){
+                            time += 1;
+                        } else {
+                            textView.setText(R.string.timer_text);
+                        }
+                    }
+                });
+            }
+        };
+        timer.scheduleAtFixedRate(timerTask, 0, 1000);
+    }
+    // End of startTimer
+
+    // Probably make a method to pass intent info for results
+    // checkEndGame method
+    public void checkEndGame(){
+        if(     !buttons[1].isEnabled() && !buttons[2].isEnabled() && !buttons[3].isEnabled() &&
+                !buttons[4].isEnabled() && !buttons[5].isEnabled() && !buttons[6].isEnabled() &&
+                !buttons[7].isEnabled() && !buttons[8].isEnabled()){
+            timer.cancel();
         }
     }
 }

@@ -14,7 +14,7 @@ import android.widget.GridLayout;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private Button newGameButton;
+    private Button newGameButton, scoreBoardButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +23,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        /* FloatingActionButton disabled for future use
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -30,10 +31,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
-        });
+        }); */
 
         newGameButton = findViewById(R.id.new_game_button);
         newGameButton.setOnClickListener(this);
+        scoreBoardButton = findViewById(R.id.score_board_button);
+        scoreBoardButton.setOnClickListener(this);
 
     }
 
@@ -65,6 +68,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (v.getId()){
             case R.id.new_game_button:
                 i = new Intent(this, GameActivity.class);
+                startActivity(i);
+                break;
+            case R.id.score_board_button:
+                i = new Intent(this, ScoreActivity.class);
                 startActivity(i);
                 break;
         }

@@ -54,6 +54,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(new Intent(this, AboutActivity.class));
                 return true;
             case R.id.action_logout :
+                // Code adapted from https://stackoverflow.com/a/19310052
+                startActivity(new Intent(this, LoginActivity.class));
+                finish();
+                // End of adapted code
                 return true;
             case R.id.action_settings :
                 return true;

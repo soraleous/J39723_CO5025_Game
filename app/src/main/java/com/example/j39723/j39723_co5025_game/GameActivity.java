@@ -24,7 +24,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     private Object selectedButton2 = null;
     private int time = 0;
     private Timer timer;
-    private TextView textView;
+    private TextView timerTextView;
     private boolean startTime = true;
     // End of Variables
 
@@ -32,23 +32,24 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
+
         // FloatingActionButton used for closing Activity
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.closeFab);
+        FloatingActionButton fab = findViewById(R.id.closeFab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 timer.cancel();
                 timer.purge();
-                textView.setText(R.string.timer_text);
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                timerTextView.setText(R.string.timer_number);
+                finish();
+                /*Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 intent.putExtra("EXIT", true);
-                startActivity(intent);
+                startActivity(intent); */
             }
         });
 
-
-        //ImageButtons creation
+        // ImageButtons creation
         randomize(myImageArr, myImageArr.length);
         buttons[1] = findViewById(R.id.one);
         buttons[2] = findViewById(R.id.two);
@@ -58,31 +59,30 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         buttons[6] = findViewById(R.id.six);
         buttons[7] = findViewById(R.id.seven);
         buttons[8] = findViewById(R.id.eight);
-        /* Since Button 9 would not be used
-        buttons[9] = findViewById(R.id.nine); */
+        // Since Button 9 would not be used
+        // buttons[9] = findViewById(R.id.nine);
 
         // Set OnClick Listener for all eight usable buttons
         for (int i = 1; i <= 8 ; i++) {
             buttons[i].setOnClickListener(this);
         }
-        //buttons[9].setEnabled(false);
+        // clearGrid to reset grid buttons to default drawables and enable for use
         clearGrid();
         // End of ImageButtons creation
-        textView = findViewById(R.id.timerText);
+
+        timerTextView = findViewById(R.id.timerNum);
         //Start timer and delays here
         if (startTime){
             time = 0;
             startTimer();
         }
 
-
-
-
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()){
+            //Only setup for eight buttons as ninth is disabled/unused
             case R.id.one :
                 count++;
                 makeMove(1);
@@ -139,7 +139,6 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                     flipBack();
                 }
                 break;
-
         }
     }
 
@@ -151,6 +150,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         count = 0;
     }
 
+    // Start of makeMove method
     public void makeMove(int i){
         buttons[i].setEnabled(false);
         buttons[i].setBackgroundResource(myImageArr[i-1]);
@@ -159,7 +159,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         buttons[i].setTag(btnTag);
         System.out.println("this is test1 " + btnTag);
 
-        // Assign tag to object for easier comparison
+        // Assign tag to two objects for easier comparison
         if (selectedButton1 == null){
             selectedButton1 = buttons[i].getTag();
             System.out.println("this is button1 " + selectedButton1);
@@ -168,14 +168,16 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             System.out.println("this is button2 " + selectedButton2);
         }
     }
+    // End of makeMove method
 
     public void flipBack() {
         // flipBack method compares the selected buttons to see if they match or not
-        // If buttons matches, count and selectedButtons are reset to defaults
+        // If selected buttons matches, count and selectedButtons are reset to defaults
         if (selectedButton1.toString().equals(selectedButton2.toString())){
             selectedButton1 = null;
             selectedButton2 = null;
             count = 0;
+            // checkEndGame called here as final button match would just result in game ending
             checkEndGame();
             System.out.println("ITS EQUAL + RESET");
         // Else selectedButtons are reset and buttons are flipped back
@@ -195,7 +197,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     // Start of randomize method
-    // This is to randomize 'myImageArr' Image Array to ensure the game loads it differently everytime
+    // This is to randomize 'myImageArr' Array to ensure the game loads images differently every time
     public void randomize(int arr[], int n){
         Random r = new Random();
         for (int i = n-1; i>0; i--){
@@ -207,7 +209,8 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     }
     // End of randomize method
 
-    // Timer Tasks from https://v4all123.blogspot.com/2013/01/timer.html
+    // Start of startTimer
+    // Code adapted from https://v4all123.blogspot.com/2013/01/timer.html
     public void startTimer(){
         timer = new Timer();
         TimerTask timerTask = new TimerTask() {
@@ -216,11 +219,11 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        textView.setText(String.format(Locale.getDefault(), "%d", time));
+                        timerTextView.setText(String.format(Locale.getDefault(), "%d", time));
                         if (time >= 0){
                             time += 1;
                         } else {
-                            textView.setText(R.string.timer_text);
+                            timerTextView.setText(R.string.timer_number);
                         }
                     }
                 });
@@ -228,6 +231,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         };
         timer.scheduleAtFixedRate(timerTask, 0, 1000);
     }
+    // End of adapted Code
     // End of startTimer
 
     // Probably make a method to pass intent info for results
@@ -236,7 +240,9 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         if(     !buttons[1].isEnabled() && !buttons[2].isEnabled() && !buttons[3].isEnabled() &&
                 !buttons[4].isEnabled() && !buttons[5].isEnabled() && !buttons[6].isEnabled() &&
                 !buttons[7].isEnabled() && !buttons[8].isEnabled()){
+            System.out.println("Timer Stopped");
             timer.cancel();
+            //Probably setup intent here for ScoreActivity
         }
     }
 }

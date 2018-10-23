@@ -40,6 +40,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderManager.Lo
      */
     private UserLoginTask mAuthTask = null;
     private UserLoginTask mAuthTest;
+    private boolean testRegistered = false;
 
     // UI references.
     private AutoCompleteTextView mUsernameView;
@@ -49,14 +50,17 @@ public class LoginActivity extends AppCompatActivity implements LoaderManager.Lo
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        // Create test account
-        String testUser = "test";
-        String testPass = "1234";
-        mAuthTest = new UserLoginTask(testUser, testPass, this);
-        mAuthTest.execute((Void) null);
-        
+        /* Create test account (NOT WORKING AS INTENDED) As it will login that user every time as its within OnCreate Method and it basically finds itself in the app
+        if (!testRegistered){
+            String testUser = "test";
+            String testPass = "1234";
+            mAuthTest = new UserLoginTask(testUser, testPass, this);
+            mAuthTest.execute((Void) null);
+            testRegistered = true;
+        } */
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        setTitle("J39723 App Login");
         // Set up the login form.
         mUsernameView = findViewById(R.id.email);
 
@@ -248,7 +252,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderManager.Lo
                     finish();
                     Intent myIntent = new Intent(LoginActivity.this,MainActivity.class);
                     LoginActivity.this.startActivity(myIntent);
-                }else if(myUser.username.equals(testUser)){
+                /*} Disabled for future use as its not working as intended
+                else if(myUser.username.equals(testUser)){
                     // To Add Test Account on first launch
                     DBTools dbTools=null;
                     try{
@@ -257,7 +262,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderManager.Lo
                     }finally {
                         if (dbTools!=null)
                             dbTools.close();
-                    }
+                    }*/
                 } else {
                     DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
                         @Override
@@ -280,8 +285,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderManager.Lo
                                     break;
 
                                 case DialogInterface.BUTTON_NEGATIVE:
+                                    /* Will be changed to something more appropriate
                                     mPasswordView.setError(getString(R.string.error_incorrect_password));
-                                    mPasswordView.requestFocus();
+                                    mPasswordView.requestFocus(); */
+                                    // Perhaps put Toast here to indicate registration cancellation
                                     break;
                             }
                         }

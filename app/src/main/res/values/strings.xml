@@ -29,7 +29,7 @@
     <!-- End of activity_about.xml strings -->
 
 
-    <string name="title_activity_login">App Sign in</string>
+    <string name="title_activity_login">J39723 Memory Game</string>
     <!-- Strings related to login -->
     <string name="prompt_email">Username</string>
     <string name="prompt_password">Password</string>

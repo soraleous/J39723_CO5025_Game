@@ -11,6 +11,7 @@ public class DBTools extends SQLiteOpenHelper {
     // Code adapted from https://stackoverflow.com/a/22209047
     private final static int DB_VERSION = 10;
 
+
     public DBTools(Context context){
         super(context, "myApp.db", null, DB_VERSION);
     }

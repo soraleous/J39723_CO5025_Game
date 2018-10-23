@@ -11,9 +11,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.LoaderManager;
 import android.support.v7.app.AppCompatActivity;
-import android.app.LoaderManager.LoaderCallbacks;
 
-import android.content.Loader;
 import android.database.Cursor;
 import android.os.AsyncTask;
 
@@ -41,6 +39,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderManager.Lo
      * Keep track of the login task to ensure we can cancel it if requested.
      */
     private UserLoginTask mAuthTask = null;
+    private UserLoginTask mAuthTest;
 
     // UI references.
     private AutoCompleteTextView mUsernameView;
@@ -50,6 +49,12 @@ public class LoginActivity extends AppCompatActivity implements LoaderManager.Lo
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // Create test account
+        String testUser = "test";
+        String testPass = "1234";
+        mAuthTest = new UserLoginTask(testUser, testPass, this);
+        mAuthTest.execute((Void) null);
+        
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         // Set up the login form.
@@ -202,12 +207,12 @@ public class LoginActivity extends AppCompatActivity implements LoaderManager.Lo
     // Code adapted from https://stackoverflow.com/a/22209047
     public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
 
-        private final String mEmail;
+        private final String mUsername;
         private final String mPassword;
         private final Context mContext;
 
         UserLoginTask(String email, String password, Context context) {
-            mEmail = email;
+            mUsername = email;
             mPassword = password;
             mContext= context;
         }
@@ -217,7 +222,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderManager.Lo
             DBTools dbTools=null;
             try{
                 dbTools = new DBTools(mContext);
-                myUser = dbTools.getUser(mEmail);
+                myUser = dbTools.getUser(mUsername);
 
                 if (myUser.userId>0) {
                     // Account exists, check password.
@@ -236,12 +241,23 @@ public class LoginActivity extends AppCompatActivity implements LoaderManager.Lo
         protected void onPostExecute(final Boolean success) {
             mAuthTask = null;
             showProgress(false);
+            String testUser = "test";
 
             if (success) {
                 if (myUser.userId>0){
                     finish();
                     Intent myIntent = new Intent(LoginActivity.this,MainActivity.class);
                     LoginActivity.this.startActivity(myIntent);
+                }else if(myUser.username.equals(testUser)){
+                    // To Add Test Account on first launch
+                    DBTools dbTools=null;
+                    try{
+                        dbTools = new DBTools(mContext);
+                        myUser=dbTools.insertUser(myUser);
+                    }finally {
+                        if (dbTools!=null)
+                            dbTools.close();
+                    }
                 } else {
                     DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
                         @Override

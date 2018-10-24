@@ -48,6 +48,7 @@
     <string name="updatingReport">User Created</string>
     <string name="high_head_text">Top 10 High Scores (Shortest Time Taken)</string>
     <string name="ok">OK</string>
+    <string name="score_board_title">Leaderboards</string>
     <!-- End of strings related to login -->
 
 

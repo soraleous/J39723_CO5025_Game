@@ -31,7 +31,10 @@
 
 
         <!-- Start of ScoreActivity -->
-        <activity android:name=".ScoreActivity" />
+        <activity
+            android:name=".ScoreActivity"
+            android:label="@string/score_board_title">
+        </activity>
         <!-- End of ScoreActivity -->
 
 

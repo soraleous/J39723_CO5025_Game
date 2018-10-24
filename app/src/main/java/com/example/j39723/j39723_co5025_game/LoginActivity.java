@@ -7,12 +7,8 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.LoaderManager;
 import android.support.v7.app.AppCompatActivity;
 
-import android.database.Cursor;
 import android.os.AsyncTask;
 
 import android.os.Build;
@@ -28,10 +24,14 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.j39723.j39723_co5025_game.model.DBTools;
+import com.example.j39723.j39723_co5025_game.model.User;
+
 /**
- *  Uses Android Studio's Login Activity Template, modified to fit project
+ *  Uses Android Studio's default Login Activity Template, modified to fit project
+ *  Removed the implemented LoaderManager<Cursor> as its currently unnecessary
  */
-public class LoginActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
+public class LoginActivity extends AppCompatActivity {
 
     private User myUser;
 
@@ -39,8 +39,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderManager.Lo
      * Keep track of the login task to ensure we can cancel it if requested.
      */
     private UserLoginTask mAuthTask = null;
-    private UserLoginTask mAuthTest;
-    private boolean testRegistered = false;
 
     // UI references.
     private AutoCompleteTextView mUsernameView;
@@ -50,19 +48,11 @@ public class LoginActivity extends AppCompatActivity implements LoaderManager.Lo
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        /* Create test account (NOT WORKING AS INTENDED) As it will login that user every time as its within OnCreate Method and it basically finds itself in the app
-        if (!testRegistered){
-            String testUser = "test";
-            String testPass = "1234";
-            mAuthTest = new UserLoginTask(testUser, testPass, this);
-            mAuthTest.execute((Void) null);
-            testRegistered = true;
-        } */
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         setTitle("J39723 App Login");
         // Set up the login form.
-        mUsernameView = findViewById(R.id.email);
+        mUsernameView = findViewById(R.id.username);
 
         mPasswordView = findViewById(R.id.password);
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -76,7 +66,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderManager.Lo
             }
         });
 
-        Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
+        Button mEmailSignInButton = findViewById(R.id.email_sign_in_button);
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -105,16 +95,22 @@ public class LoginActivity extends AppCompatActivity implements LoaderManager.Lo
         // Store values at the time of the login attempt.
         String username = mUsernameView.getText().toString();
         String password = mPasswordView.getText().toString();
+        //For Testing: System.out.println(username + " " + password);
 
         boolean cancel = false;
         View focusView = null;
 
         // Check for a valid password, if the user entered one.
-        if (!TextUtils.isEmpty(password) && !isPasswordValid(password)) {
+        if (TextUtils.isEmpty(password)) {
+            mPasswordView.setError(getString(R.string.error_field_required));
+            focusView = mPasswordView;
+            cancel = true;
+        } else if (!isPasswordValid(password)){
             mPasswordView.setError(getString(R.string.error_invalid_password));
             focusView = mPasswordView;
             cancel = true;
         }
+
 
         // Check for a valid username.
         if (TextUtils.isEmpty(username)) {
@@ -186,21 +182,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderManager.Lo
         }
     }
 
-    @NonNull
-    @Override
-    public android.support.v4.content.Loader<Cursor> onCreateLoader(int i, @Nullable Bundle bundle) {
-        return null;
-    }
-
-    @Override
-    public void onLoadFinished(@NonNull android.support.v4.content.Loader<Cursor> loader, Cursor cursor) {
-
-    }
-
-    @Override
-    public void onLoaderReset(@NonNull android.support.v4.content.Loader<Cursor> loader) {
-
-    }
 
 
 
@@ -246,23 +227,30 @@ public class LoginActivity extends AppCompatActivity implements LoaderManager.Lo
             mAuthTask = null;
             showProgress(false);
             String testUser = "test";
+            String testPass = "1234";
 
             if (success) {
-                if (myUser.userId>0){
+                if (myUser.userId>0) {
                     finish();
-                    Intent myIntent = new Intent(LoginActivity.this,MainActivity.class);
+                    Intent myIntent = new Intent(LoginActivity.this, MainActivity.class);
+                    myIntent.putExtra("username", myUser.username);
                     LoginActivity.this.startActivity(myIntent);
-                /*} Disabled for future use as its not working as intended
-                else if(myUser.username.equals(testUser)){
-                    // To Add Test Account on first launch
+
+                } else if(myUser.username.equals(testUser) && myUser.password.equals(testPass)) {
+                    // To Add Test Account upon typing the correct details
+                    // Will technically only run once as User will then be added and will have an ID which will run the first IF statement afterwards instead
                     DBTools dbTools=null;
                     try{
+                        finish();
                         dbTools = new DBTools(mContext);
                         myUser=dbTools.insertUser(myUser);
-                    }finally {
+                        Intent myIntent = new Intent(LoginActivity.this,MainActivity.class);
+                        myIntent.putExtra("username", myUser.username);
+                        LoginActivity.this.startActivity(myIntent);
+                    } finally {
                         if (dbTools!=null)
                             dbTools.close();
-                    }*/
+                    }
                 } else {
                     DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
                         @Override
@@ -277,8 +265,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderManager.Lo
                                         Toast myToast = Toast.makeText(mContext,R.string.updatingReport, Toast.LENGTH_SHORT);
                                         myToast.show();
                                         Intent myIntent = new Intent(LoginActivity.this,MainActivity.class);
+                                        myIntent.putExtra("username", myUser.username);
                                         LoginActivity.this.startActivity(myIntent);
-                                    } finally{
+                                    } finally {
                                         if (dbTools!=null)
                                             dbTools.close();
                                     }
@@ -293,7 +282,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderManager.Lo
                             }
                         }
                     };
-
                     AlertDialog.Builder builder = new AlertDialog.Builder(this.mContext);
                     builder.setMessage(R.string.confirm_registry).setPositiveButton(R.string.yes, dialogClickListener)
                             .setNegativeButton(R.string.no, dialogClickListener).show();

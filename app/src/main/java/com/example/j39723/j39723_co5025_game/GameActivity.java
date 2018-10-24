@@ -19,7 +19,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     private ImageButton[] buttons = new ImageButton[10];
     private int count = 0;
     private int[] myImageArr = new int[]{R.drawable.facebook128x128, R.drawable.facebook128x128, R.drawable.google128x128, R.drawable.google128x128,
-            R.drawable.tumblr128x128, R.drawable.tumblr128x128, R.drawable.youtube128x128, R.drawable.youtube128x128};
+                                            R.drawable.tumblr128x128, R.drawable.tumblr128x128, R.drawable.youtube128x128, R.drawable.youtube128x128};
     private Object selectedButton1 = null;
     private Object selectedButton2 = null;
     private int time = 0;
@@ -42,10 +42,6 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 timer.purge();
                 timerTextView.setText(R.string.timer_number);
                 finish();
-                /*Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                intent.putExtra("EXIT", true);
-                startActivity(intent); */
             }
         });
 
@@ -66,7 +62,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         for (int i = 1; i <= 8 ; i++) {
             buttons[i].setOnClickListener(this);
         }
-        // clearGrid to reset grid buttons to default drawables and enable for use
+        // clearGrid to reset grid buttons to default drawables
         clearGrid();
         // End of ImageButtons creation
 
@@ -75,6 +71,8 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         if (startTime){
             time = 0;
             startTimer();
+            // enableGrid to enable the buttons for use
+            enableGrid();
         }
 
     }
@@ -144,10 +142,15 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
     public void clearGrid() {
         for(int i = 1; i <= 8; i++) {
-            buttons[i].setEnabled(true);
             buttons[i].setBackgroundResource(R.drawable.question128x128);
         }
         count = 0;
+    }
+
+    public void enableGrid(){
+        for(int i = 1; i <= 8; i++) {
+            buttons[i].setEnabled(true);
+        }
     }
 
     // Start of makeMove method

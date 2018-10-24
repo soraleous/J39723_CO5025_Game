@@ -1,4 +1,4 @@
-package com.example.j39723.j39723_co5025_game;
+package com.example.j39723.j39723_co5025_game.model;
 
 import android.content.ContentValues;
 import android.content.Context;

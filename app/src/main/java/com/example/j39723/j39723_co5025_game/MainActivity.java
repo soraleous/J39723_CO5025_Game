@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
-import android.widget.GridLayout;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -22,6 +21,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        // Get Intent Bundle
+        Bundle bundle = getIntent().getExtras();
+        assert bundle != null;
+        String userName = bundle.getString("username");
+        System.out.println(userName);
 
         /* FloatingActionButton disabled for future use
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);

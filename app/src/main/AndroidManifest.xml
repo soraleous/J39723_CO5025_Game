@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.j39723.j39723_co5025_game">
 
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -42,14 +41,25 @@
         </activity>
         <!-- End of AboutActivity -->
 
+        <!-- Start of LoginActivity -->
         <activity
             android:name=".LoginActivity"
-            android:label="@string/title_activity_login">
+            android:label="@string/title_activity_login" >
+        </activity>
+        <!-- End of LoginActivity -->
+
+        <!-- Start of SplashActivity -->
+        <activity
+            android:name=".SplashActivity"
+            android:label="@string/app_title_name"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <!-- End of SplashActivity -->
+
     </application>
 
 </manifest>

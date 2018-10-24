@@ -33,6 +33,7 @@ import com.example.j39723.j39723_co5025_game.model.User;
  */
 public class LoginActivity extends AppCompatActivity {
 
+    // Variables
     private User myUser;
 
     /**
@@ -45,6 +46,8 @@ public class LoginActivity extends AppCompatActivity {
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
+
+    // End of Variables
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

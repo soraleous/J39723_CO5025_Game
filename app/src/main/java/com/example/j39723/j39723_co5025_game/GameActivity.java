@@ -13,6 +13,16 @@ import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
+import java.util.List;
+import android.content.SharedPreferences;
+
+import com.example.j39723.j39723_co5025_game.model.Score;
+
 public class GameActivity extends AppCompatActivity implements View.OnClickListener {
 
     // Variables
@@ -22,16 +32,28 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                                             R.drawable.tumblr128x128, R.drawable.tumblr128x128, R.drawable.youtube128x128, R.drawable.youtube128x128};
     private Object selectedButton1 = null;
     private Object selectedButton2 = null;
-    private int time = 0;
+    public int time;
     private Timer timer;
     private TextView timerTextView;
     private boolean startTime = true;
+
+    private SharedPreferences gamePrefs;
+    public static final String GAME_PREFS = "ScoreFile";
+
+    public String userName;
     // End of Variables
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
+        // Get Intent Bundle
+        Bundle bundle = getIntent().getExtras();
+        assert bundle != null;
+        userName = bundle.getString("username");
+        System.out.println(userName);
+
+        gamePrefs = getSharedPreferences(GAME_PREFS, 0);
 
         // FloatingActionButton used for closing Activity
         FloatingActionButton fab = findViewById(R.id.closeFab);
@@ -182,7 +204,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             count = 0;
             // checkEndGame called here as final button match would just result in game ending
             checkEndGame();
-            System.out.println("ITS EQUAL + RESET");
+            // System.out.println("ITS EQUAL + RESET");
         // Else selectedButtons are reset and buttons are flipped back
         } else {
             for (int i = 1; i <= 8; i++) {
@@ -243,9 +265,67 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         if(     !buttons[1].isEnabled() && !buttons[2].isEnabled() && !buttons[3].isEnabled() &&
                 !buttons[4].isEnabled() && !buttons[5].isEnabled() && !buttons[6].isEnabled() &&
                 !buttons[7].isEnabled() && !buttons[8].isEnabled()){
-            System.out.println("Timer Stopped");
             timer.cancel();
+            System.out.println("Timer Stopped");
             //Probably setup intent here for ScoreActivity
+            setHighScore();
+            System.out.println("HighScore COMPLETED");
         }
     }
+
+    // For saving scores
+    // Code adapted from https://code.tutsplus.com/tutorials/android-sdk-create-an-arithmetic-game-high-scores-and-state-data--mobile-18825
+    private void setHighScore(){
+        // Sets high score
+        List<Score> scoreStrings = new ArrayList<Score>();
+        int exTime = getTime();
+        if (exTime > 0){
+            // Valid time score
+            String username = userName;
+            SharedPreferences.Editor scoreEdit = gamePrefs.edit();
+            String scores = gamePrefs.getString("highScores", "");
+            String[] exScores = scores.split("\\|");
+
+            if (scores.length()>0){
+                // There's existing scores
+                for (String eSc : exScores){
+                    String[] parts = eSc.split(" - ");
+                    scoreStrings.add(new Score(parts[0], Integer.parseInt(parts[1])));
+                }
+                Score newScore = new Score(username, exTime);
+                scoreStrings.add(newScore);
+                Collections.sort(scoreStrings);
+
+                StringBuilder scoreBuild = new StringBuilder("");
+                for (int s = 0; s<scoreStrings.size(); s++){
+                    if (s>=10) break; // Only show ten
+                    if (s>0) scoreBuild.append("|"); // Pipe separate the score strings
+                    scoreBuild.append(scoreStrings.get(s).getScoreText());
+                }
+                // Write to prefs
+                scoreEdit.putString("highScores", scoreBuild.toString());
+                scoreEdit.commit();
+                System.out.println("IF SCORE Submitted");
+                finish();
+            } else {
+                // No existing scores
+                scoreEdit.putString("highScores", "" + username + " - " + exTime);
+                scoreEdit.commit();
+                System.out.println("Else SCORE COMPLETED");
+                // Test using finish(); first to see if it records scores properlytest
+                finish();
+            }
+
+        }
+    }
+    // End of adapted code
+
+    // Get Time score
+    // Code adapted from https://code.tutsplus.com/tutorials/android-sdk-create-an-arithmetic-game-gameplay-logic--mobile-18614
+    private int getTime(){
+        String scoreTime = timerTextView.getText().toString();
+        return Integer.parseInt(scoreTime);
+    }
+    // End of adapted code
+
 }

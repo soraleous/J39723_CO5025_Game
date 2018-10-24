@@ -14,18 +14,19 @@ import android.widget.Button;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private Button newGameButton, scoreBoardButton;
+    private String userName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         // Get Intent Bundle
         Bundle bundle = getIntent().getExtras();
         assert bundle != null;
-        String userName = bundle.getString("username");
+        userName = bundle.getString("username");
         System.out.println(userName);
 
         /* FloatingActionButton disabled for future use
@@ -77,6 +78,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (v.getId()){
             case R.id.new_game_button:
                 i = new Intent(this, GameActivity.class);
+                i.putExtra("username", userName);
                 startActivity(i);
                 break;
             case R.id.score_board_button:

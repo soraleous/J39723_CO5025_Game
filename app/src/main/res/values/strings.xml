@@ -46,6 +46,7 @@
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="updatingReport">User Created</string>
+    <string name="high_head_text">Top 10 High Scores (Shortest Time Taken)</string>
     <!-- End of strings related to login -->
 
 

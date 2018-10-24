@@ -13,7 +13,8 @@ public class SplashActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
 
         // Code adapted from https://www.youtube.com/watch?v=cakkKQYYCvQ
-        int time = 3000; // For 3 Seconds
+        int time = 3000; // For 3 seconds
+
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {

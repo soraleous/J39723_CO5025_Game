@@ -1,9 +1,15 @@
 package com.example.j39723.j39723_co5025_game;
 
+import android.animation.Animator;
+import android.animation.AnimatorInflater;
+import android.animation.ObjectAnimator;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -28,8 +34,8 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     // Variables
     private ImageButton[] buttons = new ImageButton[10];
     private int count = 0;
-    private int[] myImageArr = new int[]{R.drawable.facebook128x128, R.drawable.facebook128x128, R.drawable.google128x128, R.drawable.google128x128,
-                                            R.drawable.tumblr128x128, R.drawable.tumblr128x128, R.drawable.youtube128x128, R.drawable.youtube128x128};
+    //private int[] myImageArr = new int[]{R.drawable.facebook128x128, R.drawable.facebook128x128, R.drawable.google128x128, R.drawable.google128x128, R.drawable.tumblr128x128, R.drawable.tumblr128x128, R.drawable.youtube128x128, R.drawable.youtube128x128};
+    private int[] myImageArr;
     private Object selectedButton1 = null;
     private Object selectedButton2 = null;
     public int time;
@@ -41,24 +47,44 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     public static final String GAME_PREFS = "ScoreFile";
 
     public String userName;
+    public int gameType;
 
     private boolean isBusy = false;
 
     private Handler mHandler = new Handler();
     Runnable buttonHold;
+    // initialStartDelay may be used for future purposes
+    Runnable initialStartDelay;
+
+    MediaPlayer mp;
+    MediaPlayer mp2;
     // End of Variables
 
     // Start of onCreate
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_game);
-
         // Get Intent Bundle
         Bundle bundle = getIntent().getExtras();
         assert bundle != null;
         userName = bundle.getString("username");
-        System.out.println(userName);
+        gameType = bundle.getInt("arrayNo");
+        System.out.println("GameType = " + gameType);
+        if (gameType == 0){
+            myImageArr = new int[]{R.drawable.facebook128x128, R.drawable.facebook128x128, R.drawable.google128x128, R.drawable.google128x128,
+                    R.drawable.tumblr128x128, R.drawable.tumblr128x128, R.drawable.youtube128x128, R.drawable.youtube128x128};
+        } else if (gameType == 1){
+            myImageArr = new int[]{R.drawable.digg_512, R.drawable.digg_512, R.drawable.ebay_512, R.drawable.ebay_512,
+                    R.drawable.ted_512, R.drawable.ted_512, R.drawable.youtube_512, R.drawable.youtube_512};
+        } else {
+            myImageArr = new int[]{R.drawable.green_num_1, R.drawable.green_num_1, R.drawable.green_num_2, R.drawable.green_num_2,
+                    R.drawable.green_num_3, R.drawable.green_num_3, R.drawable.green_num_4, R.drawable.green_num_4};
+        }
+
+
+        // System.out.println(userName);
+
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_game);
 
         gamePrefs = getSharedPreferences(GAME_PREFS, 0);
 
@@ -109,44 +135,53 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     // Start of onClick Method
     @Override
     public void onClick(View v) {
+        mp2 = MediaPlayer.create(this, R.raw.mag_page_flip);
         switch (v.getId()){
             // Only setup for eight buttons as ninth is disabled/unused
             case R.id.one :
+                mp2.start();
                 count++;
                 makeMove(1);
                 if (count == 2){ flipBack(); }
                 break;
             case R.id.two :
+                mp2.start();
                 count++;
                 makeMove(2);
                 if (count == 2){ flipBack(); }
                 break;
             case R.id.three :
+                mp2.start();
                 count++;
                 makeMove(3);
                 if (count == 2){ flipBack(); }
                 break;
             case R.id.four :
+                mp2.start();
                 count++;
                 makeMove(4);
                 if (count == 2){ flipBack(); }
                 break;
             case R.id.five :
+                mp2.start();
                 count++;
                 makeMove(5);
                 if (count == 2){ flipBack(); }
                 break;
             case R.id.six :
+                mp2.start();
                 count++;
                 makeMove(6);
                 if (count == 2){ flipBack(); }
                 break;
             case R.id.seven :
+                mp2.start();
                 count++;
                 makeMove(7);
                 if (count == 2){ flipBack(); }
                 break;
             case R.id.eight :
+                mp2.start();
                 count++;
                 makeMove(8);
                 if (count == 2){ flipBack(); }
@@ -155,26 +190,42 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     }
     // End of onClick Method
 
-    // Start of screenTapped Method
-    public void screenTapped(View view){
-        // Code adapted from https://stackoverflow.com/a/27602169
-        // Disable pending handlers here
-            if (mHandler!= null){
-                mHandler.removeCallbacks(buttonHold);
-                //mHandler = null;
-                // Then perform the function that might had took 3 seconds to complete
-                for (int i = 1; i <= 8; i++) {
-                    if (selectedButton1 == buttons[i].getTag() || selectedButton2 == buttons[i].getTag()){
-                        buttons[i].setEnabled(true);
-                        buttons[i].setBackgroundResource(R.drawable.question128x128);
-                    }
-                }
-                isBusy = false;
-                selectedButton1 = null;
-                selectedButton2 = null;
-                count = 0;
-            }
+    // code http://www.edumobile.org/android/flip-your-viewsimage-buttontext-etc/
+    private void flipIt(final View viewToFlip){
+        ObjectAnimator flip = ObjectAnimator.ofFloat(viewToFlip, "rotationX", 0f, 360f);
+        flip.setDuration(200);
+        flip.start();
+    }
 
+    // Start of screenTapped Method (Added android:onClick="screenTapped" to base layout)
+    // Code adapted from https://stackoverflow.com/a/27602169
+    public void screenTapped(View view){
+        // End of adapted code
+        // Decided to disable pending handlers here should user taps any other part of the screen other than the buttons
+            //Code adapted from https://stackoverflow.com/a/15230215
+            if (mHandler!= null){
+                // Remove handler for resetting button image within 3 seconds
+                mHandler.removeCallbacks(buttonHold);
+                // End of adapted code
+
+                // Then perform the disabled handler here instead to reset buttons
+                if (count == 2){
+                    mp2 = MediaPlayer.create(this, R.raw.mag_page_flip);
+                    for (int i = 1; i <= 8; i++) {
+                        if (selectedButton1 == buttons[i].getTag() || selectedButton2 == buttons[i].getTag()){
+                            flipIt(buttons[i]);
+                            buttons[i].setEnabled(true);
+                            buttons[i].setBackgroundResource(R.drawable.question128x128);
+                        }
+                    }
+                    mp2.start();
+                    isBusy = false;
+                    selectedButton1 = null;
+                    selectedButton2 = null;
+                    count = 0;
+                }
+
+            }
 
     }
 
@@ -186,6 +237,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         count = 0;
     }
 
+    // enableGrid to make buttons usable
     public void enableGrid(){
         for(int i = 1; i <= 8; i++) {
             buttons[i].setEnabled(true);
@@ -196,6 +248,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     // Start of makeMove method
     public void makeMove(int i){
         if (!isBusy) {
+            flipIt(buttons[i]);
             buttons[i].setEnabled(false);
             buttons[i].setBackgroundResource(myImageArr[i - 1]);
 
@@ -220,6 +273,8 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         // flipBack method compares the selected buttons to see if they match or not
         // If selected buttons matches, count and selectedButtons are reset to default values
         if (selectedButton1.toString().equals(selectedButton2.toString())){
+            mp = MediaPlayer.create(this, R.raw.grunz_success_low);
+            mp.start();
             selectedButton1 = null;
             selectedButton2 = null;
             count = 0;
@@ -230,17 +285,21 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         // Else selectedButtons are reset and buttons are flipped back (Within 3 seconds or tap detected)
         } else {
             // isBusy prevents our 'Enabled' buttons from pressing if its true
+            mp = MediaPlayer.create(this, R.raw.lucario_error);
+            mp2 = MediaPlayer.create(this, R.raw.mag_page_flip);
+            mp.start();
             isBusy = true;
             buttonHold = new Runnable() {
                 @Override
                 public void run() {
                     for (int i = 1; i <= 8; i++) {
                         if (selectedButton1 == buttons[i].getTag() || selectedButton2 == buttons[i].getTag()){
+                            flipIt(buttons[i]);
                             buttons[i].setEnabled(true);
                             buttons[i].setBackgroundResource(R.drawable.question128x128);
-
                         }
                     }
+                    mp2.start();
                     isBusy = false;
                     selectedButton1 = null;
                     selectedButton2 = null;
@@ -300,7 +359,32 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             System.out.println("Timer Stopped");
             //Probably setup intent here for ScoreActivity
             setHighScore();
-            System.out.println("HighScore COMPLETED");
+            // finish might be changed with dialog
+            mp = MediaPlayer.create(this, R.raw.fins_success_1);
+            mp.start();
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("Congratulations " + userName + "!");
+            builder.setMessage("It only took you " + timerTextView.getText().toString() + " seconds");
+            builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    timer.purge();
+                    timerTextView.setText(R.string.timer_number);
+                    finish();
+                }
+            });
+            builder.setNegativeButton(R.string.score_board_button_text, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    timer.purge();
+                    timerTextView.setText(R.string.timer_number);
+                    finish();
+                    startActivity(new Intent(GameActivity.this, ScoreActivity.class));
+                }
+            });
+            AlertDialog dialog = builder.create();
+            dialog.show();
+            // finish();
         }
     }
     // End of checkEndGame method
@@ -340,15 +424,11 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 scoreEdit.putString("highScores", scoreBuild.toString());
                 scoreEdit.commit();
                 System.out.println("IF SCORE Submitted");
-                // finish might be changed with dialog
-                finish();
             } else {
                 // No existing scores
                 scoreEdit.putString("highScores", "" + username + " - " + exTime);
                 scoreEdit.commit();
                 System.out.println("Else SCORE COMPLETED");
-                // finish might be changed with dialog
-                finish();
             }
             // End of adapted code
         }
@@ -362,5 +442,14 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         // End of adapted code
     }
     // End of getTime method
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (mp != null) {
+            mp.release();
+            mp2.release();
+        }
+    }
 
 }

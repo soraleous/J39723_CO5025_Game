@@ -1,9 +1,11 @@
 package com.example.j39723.j39723_co5025_game;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -15,6 +17,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private Button newGameButton, scoreBoardButton;
     private String userName;
+    private String[] gameImages = {"Images", "Words", "Numbers"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,9 +80,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Intent i;
         switch (v.getId()){
             case R.id.new_game_button:
-                i = new Intent(this, GameActivity.class);
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setTitle("Choose Button Format")
+                        .setSingleChoiceItems(gameImages,-1, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                                // Start game activity here
+                                startGame(which);
+                            }
+                        });
+                AlertDialog ad = builder.create();
+                ad.show();
+
+                /*i = new Intent(this, GameActivity.class);
                 i.putExtra("username", userName);
-                startActivity(i);
+                startActivity(i); */
                 break;
             case R.id.score_board_button:
                 i = new Intent(this, ScoreActivity.class);
@@ -87,4 +103,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
         }
     }
+
+    //Code adapted from https://code.tutsplus.com/tutorials/android-sdk-create-an-arithmetic-game-gameplay-logic--mobile-18614
+    private void startGame(int chosenType){
+        Intent i = new Intent(this, GameActivity.class);
+        i.putExtra("username", userName);
+        i.putExtra("arrayNo", chosenType);
+        startActivity(i);
+    }
+
 }

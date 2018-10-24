@@ -24,7 +24,8 @@
         <!-- Start of GameActivity -->
         <activity
             android:name=".GameActivity"
-            android:configChanges="orientation|screenSize|keyboardHidden|smallestScreenSize|screenLayout">
+            android:configChanges="orientation|screenSize|keyboardHidden|smallestScreenSize|screenLayout"
+            android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <!-- End of GameActivity -->
 

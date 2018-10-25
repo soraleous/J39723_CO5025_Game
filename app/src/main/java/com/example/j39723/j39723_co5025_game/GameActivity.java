@@ -30,7 +30,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     // Variables
     private ImageButton[] buttons = new ImageButton[10];
     private int count = 0;
-    //private int[] myImageArr = new int[]{R.drawable.facebook128x128, R.drawable.facebook128x128, R.drawable.google128x128, R.drawable.google128x128, R.drawable.tumblr128x128, R.drawable.tumblr128x128, R.drawable.youtube128x128, R.drawable.youtube128x128};
+    //private int[] myImageArr = new int[]{R.drawable.facebook512x512, R.drawable.facebook512x512, R.drawable.google512x512, R.drawable.google512x512, R.drawable.tumblr512x512, R.drawable.tumblr512x512, R.drawable.youtube512x512, R.drawable.youtube512x512};
     private int[] myImageArr;
     private Object selectedButton1 = null;
     private Object selectedButton2 = null;
@@ -66,8 +66,8 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         gameType = bundle.getInt("arrayNo");
         System.out.println("GameType = " + gameType);
         if (gameType == 0){
-            myImageArr = new int[]{R.drawable.facebook128x128, R.drawable.facebook128x128, R.drawable.google128x128, R.drawable.google128x128,
-                    R.drawable.tumblr128x128, R.drawable.tumblr128x128, R.drawable.youtube128x128, R.drawable.youtube128x128};
+            myImageArr = new int[]{R.drawable.facebook512x512, R.drawable.facebook512x512, R.drawable.google512x512, R.drawable.google512x512,
+                    R.drawable.tumblr512x512, R.drawable.tumblr512x512, R.drawable.youtube512x512, R.drawable.youtube512x512};
         } else if (gameType == 1){
             myImageArr = new int[]{R.drawable.digg_512, R.drawable.digg_512, R.drawable.ebay_512, R.drawable.ebay_512,
                     R.drawable.ted_512, R.drawable.ted_512, R.drawable.youtube_512, R.drawable.youtube_512};

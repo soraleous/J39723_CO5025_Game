@@ -12,10 +12,11 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private Button newGameButton, scoreBoardButton;
+    private Button newGameButton, scoreBoardButton, aboutButton, logoutButton;
     private String userName;
     private String[] gameImages = {"Images", "Words", "Numbers"};
 
@@ -30,9 +31,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Bundle bundle = getIntent().getExtras();
         assert bundle != null;
         userName = bundle.getString("username");
-        System.out.println(userName);
+        // System.out.println(userName); (For Testing)
+        setTitle("Welcome, " + userName + "!");
 
-        /* FloatingActionButton disabled for future use
+        /* FloatingActionButton disabled for future potential use
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -46,6 +48,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         newGameButton.setOnClickListener(this);
         scoreBoardButton = findViewById(R.id.score_board_button);
         scoreBoardButton.setOnClickListener(this);
+        aboutButton = findViewById(R.id.about_button);
+        aboutButton.setOnClickListener(this);
+        logoutButton = findViewById(R.id.logout_button);
+        logoutButton.setOnClickListener(this);
 
     }
 
@@ -65,6 +71,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.action_logout :
                 // Code adapted from https://stackoverflow.com/a/19310052
                 startActivity(new Intent(this, LoginActivity.class));
+                Toast myToast = Toast.makeText(this,R.string.logged_out_text, Toast.LENGTH_SHORT);
+                myToast.show();
                 finish();
                 // End of adapted code
                 return true;
@@ -86,30 +94,37 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 dialog.dismiss();
-                                // Start game activity here
+                                // Call method startGame to start game activity here
                                 startGame(which);
                             }
                         });
                 AlertDialog ad = builder.create();
                 ad.show();
-
-                /*i = new Intent(this, GameActivity.class);
-                i.putExtra("username", userName);
-                startActivity(i); */
                 break;
             case R.id.score_board_button:
                 i = new Intent(this, ScoreActivity.class);
                 startActivity(i);
                 break;
+            case R.id.about_button:
+                i = new Intent(this, AboutActivity.class);
+                startActivity(i);
+                break;
+            case R.id.logout_button:
+                startActivity(new Intent(this, LoginActivity.class));
+                Toast myToast = Toast.makeText(this,R.string.logged_out_text, Toast.LENGTH_SHORT);
+                myToast.show();
+                finish();
+                break;
         }
     }
 
-    //Code adapted from https://code.tutsplus.com/tutorials/android-sdk-create-an-arithmetic-game-gameplay-logic--mobile-18614
+    // Code adapted from https://code.tutsplus.com/tutorials/android-sdk-create-an-arithmetic-game-gameplay-logic--mobile-18614
     private void startGame(int chosenType){
         Intent i = new Intent(this, GameActivity.class);
         i.putExtra("username", userName);
         i.putExtra("arrayNo", chosenType);
         startActivity(i);
     }
+    // End of adapted code
 
 }

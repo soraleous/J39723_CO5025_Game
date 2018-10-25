@@ -1,7 +1,7 @@
 <resources>
 
     <string name="app_name">J39723 Memory Game</string>
-    <string name="app_title_name">J39723 Memory Game</string>
+    <string name="app_title_name" translatable="false">J39723 Memory Game</string>
 
     <!-- Start of activity_main.xml strings -->
     <string name="new_game_button_text">New Game</string>
@@ -10,7 +10,7 @@
 
     <!-- Start of activity_game.xml strings -->
     <string name="timer_text">Timer:</string>
-    <string name="timer_number">0</string>
+    <string name="timer_number" translatable="false">0</string>
     <!-- End of activity_game.xml strings -->
 
     <!-- Start of action menu items strings -->
@@ -21,16 +21,17 @@
 
     <!-- Start of activity_about.xml strings -->
     <string name="card1_title_text">About the App</string>
-    <string name="card1_paragraph_text">Replace Text</string>
+    <string name="card1_paragraph_text" translatable="false">Replace Text</string>
     <string name="card2_title_text">About CO5025 Course</string>
-    <string name="card2_paragraph_text">Replace Text</string>
+    <string name="card2_paragraph_text" translatable="false">Replace Text</string>
     <string name="card3_title_text">About App\'s Author</string>
-    <string name="card3_paragraph_text">App was created by Laksamana College of Business, Student 1626491/J39723</string>
+    <string name="card3_paragraph_text" translatable="false">App was created by Laksamana College of Business, Student 1626491/J39723</string>
     <!-- End of activity_about.xml strings -->
 
 
-    <string name="title_activity_login">J39723 Memory Game</string>
+
     <!-- Strings related to login -->
+    <string name="title_activity_login" translatable="false">J39723 Memory Game</string>
     <string name="prompt_email">Username</string>
     <string name="prompt_password">Password</string>
     <string name="action_sign_in">Sign in or register</string>
@@ -39,17 +40,21 @@
     <string name="error_invalid_password">This password is too short (More than 3 characters)</string>
     <string name="error_incorrect_password">This password is incorrect</string>
     <string name="error_field_required">This field is required</string>
-    <string name="permission_rationale">"Contacts permissions are needed for providing email
-        completions."
-    </string>
-    <string name="confirm_registry">User not found. Do you want to create a new user with that username and password?</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="updatingReport">User Created</string>
+    <!-- End of Strings related to login -->
+
+    <!-- Start of ScoreActivity Strings -->
     <string name="high_head_text">Top 10 High Scores (Shortest Time Taken)</string>
     <string name="ok">OK</string>
-    <string name="score_board_title">Leaderboards</string>
-    <!-- End of strings related to login -->
+    <string name="score_board_title">Scoreboards</string>
+    <string name="leaderboard_title">Game Leaderboards</string>
+    <string name="score_empty">No Highscores… yet!</string>
+    <string name="confirm_registry">User not found. Do you want to create a new user with that username and password?</string>
+    <string name="logged_out_text">Logged Out</string>
+    <!-- End of ScoreActivity Strings -->
+    <string name="welcome_text">Welcome,</string>
 
 
 </resources>

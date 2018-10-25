@@ -77,7 +77,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         }
 
 
-        // System.out.println(userName);
+        // System.out.println(userName); (For Testing)
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
@@ -117,7 +117,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         clearGrid();
         // End of ImageButtons creation
 
-        //Start timer and delays here
+        //Start timer and possibly delays here
         timerTextView = findViewById(R.id.timerNum);
         if (startTime){
             time = 0;
@@ -131,53 +131,44 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     // Start of onClick Method
     @Override
     public void onClick(View v) {
-        mp2 = MediaPlayer.create(this, R.raw.mag_page_flip);
         switch (v.getId()){
             // Only setup for eight buttons as ninth is disabled/unused
             case R.id.one :
-                mp2.start();
                 count++;
                 makeMove(1);
                 if (count == 2){ flipBack(); }
                 break;
             case R.id.two :
-                mp2.start();
                 count++;
                 makeMove(2);
                 if (count == 2){ flipBack(); }
                 break;
             case R.id.three :
-                mp2.start();
                 count++;
                 makeMove(3);
                 if (count == 2){ flipBack(); }
                 break;
             case R.id.four :
-                mp2.start();
                 count++;
                 makeMove(4);
                 if (count == 2){ flipBack(); }
                 break;
             case R.id.five :
-                mp2.start();
                 count++;
                 makeMove(5);
                 if (count == 2){ flipBack(); }
                 break;
             case R.id.six :
-                mp2.start();
                 count++;
                 makeMove(6);
                 if (count == 2){ flipBack(); }
                 break;
             case R.id.seven :
-                mp2.start();
                 count++;
                 makeMove(7);
                 if (count == 2){ flipBack(); }
                 break;
             case R.id.eight :
-                mp2.start();
                 count++;
                 makeMove(8);
                 if (count == 2){ flipBack(); }
@@ -186,12 +177,14 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     }
     // End of onClick Method
 
+    // flipIt method for flip animation
     // code http://www.edumobile.org/android/flip-your-viewsimage-buttontext-etc/
     private void flipIt(final View viewToFlip){
-        ObjectAnimator flip = ObjectAnimator.ofFloat(viewToFlip, "rotationX", 0f, 360f);
+        ObjectAnimator flip = ObjectAnimator.ofFloat(viewToFlip, "rotationY", 0f, 360f);
         flip.setDuration(200);
         flip.start();
     }
+    // End of adapted code
 
     // Start of screenTapped Method (Added android:onClick="screenTapped" to base layout)
     // Code adapted from https://stackoverflow.com/a/27602169
@@ -244,6 +237,8 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     // Start of makeMove method
     public void makeMove(int i){
         if (!isBusy) {
+            mp2 = MediaPlayer.create(this, R.raw.mag_page_flip);
+            mp2.start();
             flipIt(buttons[i]);
             buttons[i].setEnabled(false);
             buttons[i].setBackgroundResource(myImageArr[i - 1]);

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">J39723 Memory Game</string>
+    <string name="new_game_button_text">Permainan baru</string>
+    <string name="score_board_button_text">Papan Skor</string>
+    <string name="timer_text">Pemasa:</string>
+    <string name="action_settings">Tetapan</string>
+    <string name="action_about">Mengenai</string>
+    <string name="action_logout">Log Keluar</string>
+    <string name="card1_title_text">Mengenai Aplikasi</string>
+    <string name="card2_title_text">Mengenai Kursus CO5025</string>
+    <string name="card3_title_text">Mengenai Pencipta Aplikasi</string>
+    <string name="prompt_email">Pengenalan</string>
+    <string name="prompt_password">Kata Laluan</string>
+    <string name="action_sign_in_short">Log Masuk</string>
+    <string name="action_sign_in">Log Masuk atau Daftar</string>
+    <string name="error_invalid_username">Nama pengenalan ini tidak sah (Lebih daripada tiga huruf)</string>
+    <string name="error_invalid_password">Kata laluan ini terlalu pendik (Lebih daripada tiga huruf)</string>
+    <string name="error_incorrect_password">Kata laluan ini tidak sah</string>
+    <string name="error_field_required">Bidang ini diperlukan</string>
+    <string name="confirm_registry">Pengenalan tidak dijumpai. Adakah anda ingin mencipta pengguna baru?</string>
+    <string name="yes">Au</string>
+    <string name="no">Tak</string>
+    <string name="updatingReport">Pengguna Dicipta</string>
+    <string name="high_head_text">10 Skor Tertinggi (Masa Yang Singkat)</string>
+    <string name="ok">OK</string>
+    <string name="score_board_title">Papan Skor</string>
+    <string name="leaderboard_title">Leaderboard Permainan</string>
+    <string name="score_empty">Sekarang tiada skor</string>
+    <string name="logged_out_text">Log Keluar</string>
+    <string name="welcome_text">Selamat datang,</string>
+</resources>

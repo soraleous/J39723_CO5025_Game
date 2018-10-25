@@ -7,13 +7,15 @@ import android.view.MenuItem;
 import android.content.SharedPreferences;
 import android.widget.TextView;
 
+import java.util.Arrays;
+
 public class ScoreActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_score);
-        // Parent Activity should be MainActivity, need pass back username there?
+        // Uses custom actionbar to display 'Up' button to prevent home page from crashing due to lack of intent info for username
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayOptions(ActionBar.DISPLAY_HOME_AS_UP | ActionBar.DISPLAY_SHOW_TITLE);
 
@@ -22,16 +24,20 @@ public class ScoreActivity extends AppCompatActivity {
         SharedPreferences scorePrefs = getSharedPreferences(GameActivity.GAME_PREFS, 0);
         String[] savedScores = scorePrefs.getString("highScores", "").split("\\|");
 
-        // Iterate through scores, appending them into a single string with new lines between them
-        StringBuilder scoreBuild = new StringBuilder("");
-        int i = 1;
-        for (String score : savedScores){
-            scoreBuild.append(i).append(". ").append(score).append(" Seconds").append("\n");
-            i++;
+        // Iterate through scores, appending them into a single string with new lines between them except when array is empty
+        // System.out.println(Arrays.toString(savedScores));
+        if (Arrays.toString(savedScores).equals("[]")) {
+            scoreView.setText(R.string.score_empty);
+        } else {
+            StringBuilder scoreBuild = new StringBuilder("");
+            int i = 1;
+            for (String score : savedScores){
+                scoreBuild.append(i).append(". ").append(score).append(" Seconds").append("\n");
+                i++;
+            }
+            scoreView.setText(scoreBuild.toString());
         }
-        scoreView.setText(scoreBuild.toString());
-
-
+        // End of adapted code
     }
     // End of onCreate
 

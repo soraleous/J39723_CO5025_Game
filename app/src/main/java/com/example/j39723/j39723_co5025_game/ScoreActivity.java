@@ -24,8 +24,10 @@ public class ScoreActivity extends AppCompatActivity {
 
         // Iterate through scores, appending them into a single string with new lines between them
         StringBuilder scoreBuild = new StringBuilder("");
+        int i = 1;
         for (String score : savedScores){
-            scoreBuild.append(score + "\n");
+            scoreBuild.append(i).append(". ").append(score).append(" Seconds").append("\n");
+            i++;
         }
         scoreView.setText(scoreBuild.toString());
 

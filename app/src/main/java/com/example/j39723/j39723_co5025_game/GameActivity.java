@@ -1,9 +1,6 @@
 package com.example.j39723.j39723_co5025_game;
 
-import android.animation.Animator;
-import android.animation.AnimatorInflater;
 import android.animation.ObjectAnimator;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.media.MediaPlayer;
@@ -25,7 +22,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import android.content.SharedPreferences;
-import android.widget.Toast;
 
 import com.example.j39723.j39723_co5025_game.model.Score;
 
@@ -215,7 +211,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                         if (selectedButton1 == buttons[i].getTag() || selectedButton2 == buttons[i].getTag()){
                             flipIt(buttons[i]);
                             buttons[i].setEnabled(true);
-                            buttons[i].setBackgroundResource(R.drawable.question128x128);
+                            buttons[i].setBackgroundResource(R.drawable.question512x512);
                         }
                     }
                     mp2.start();
@@ -232,7 +228,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     // clearGrid to setup buttons with the question mark image
     public void clearGrid() {
         for(int i = 1; i <= 8; i++) {
-            buttons[i].setBackgroundResource(R.drawable.question128x128);
+            buttons[i].setBackgroundResource(R.drawable.question512x512);
         }
         count = 0;
     }
@@ -296,7 +292,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                         if (selectedButton1 == buttons[i].getTag() || selectedButton2 == buttons[i].getTag()){
                             flipIt(buttons[i]);
                             buttons[i].setEnabled(true);
-                            buttons[i].setBackgroundResource(R.drawable.question128x128);
+                            buttons[i].setBackgroundResource(R.drawable.question512x512);
                         }
                     }
                     mp2.start();

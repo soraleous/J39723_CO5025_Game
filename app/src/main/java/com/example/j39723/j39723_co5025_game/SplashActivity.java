@@ -18,7 +18,7 @@ public class SplashActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                // Runs LoginActivity afterwards
+                // Starts LoginActivity afterwards while closing this activity so it doesn't get added to backstack
                 finish();
                 startActivity(new Intent(SplashActivity.this, LoginActivity.class));
             }

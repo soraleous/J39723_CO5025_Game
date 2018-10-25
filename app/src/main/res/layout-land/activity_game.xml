@@ -2,6 +2,7 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/game_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:onClick="screenTapped"
@@ -19,7 +20,8 @@
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_chainStyle="packed" />
+        app:layout_constraintVertical_chainStyle="packed"
+        tools:ignore="ContentDescription" />
 
     <ImageButton
         android:id="@+id/two"
@@ -30,7 +32,8 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/one"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_chainStyle="packed" />
+        app:layout_constraintVertical_chainStyle="packed"
+        tools:ignore="ContentDescription" />
 
     <ImageButton
         android:id="@+id/three"
@@ -41,7 +44,8 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/two"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_chainStyle="packed" />
+        app:layout_constraintVertical_chainStyle="packed"
+        tools:ignore="ContentDescription" />
 
     <ImageButton
         android:id="@+id/four"
@@ -52,7 +56,8 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/one" />
+        app:layout_constraintTop_toBottomOf="@+id/one"
+        tools:ignore="ContentDescription" />
 
     <ImageButton
         android:id="@+id/five"
@@ -62,7 +67,8 @@
         app:layout_constraintEnd_toStartOf="@+id/six"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/four"
-        app:layout_constraintTop_toBottomOf="@+id/two" />
+        app:layout_constraintTop_toBottomOf="@+id/two"
+        tools:ignore="ContentDescription" />
 
     <ImageButton
         android:id="@+id/six"
@@ -72,7 +78,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/five"
-        app:layout_constraintTop_toBottomOf="@+id/three" />
+        app:layout_constraintTop_toBottomOf="@+id/three"
+        tools:ignore="ContentDescription" />
 
     <ImageButton
         android:id="@+id/seven"
@@ -83,7 +90,8 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/four" />
+        app:layout_constraintTop_toBottomOf="@+id/four"
+        tools:ignore="ContentDescription" />
 
     <ImageButton
         android:id="@+id/eight"
@@ -93,7 +101,8 @@
         app:layout_constraintEnd_toStartOf="@+id/nine"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/seven"
-        app:layout_constraintTop_toBottomOf="@+id/five" />
+        app:layout_constraintTop_toBottomOf="@+id/five"
+        tools:ignore="ContentDescription" />
 
     <ImageButton
         android:id="@+id/nine"
@@ -104,7 +113,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/eight"
-        app:layout_constraintTop_toBottomOf="@+id/six" />
+        app:layout_constraintTop_toBottomOf="@+id/six"
+        tools:ignore="ContentDescription" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/closeFab"
@@ -142,6 +152,16 @@
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/timerText"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/imageChangeButton"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/pic128x128"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

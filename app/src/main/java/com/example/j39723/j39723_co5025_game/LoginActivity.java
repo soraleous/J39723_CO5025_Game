@@ -53,9 +53,9 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
         // Set up the login form.
         mUsernameView = findViewById(R.id.username);
-
         mPasswordView = findViewById(R.id.password);
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -97,12 +97,12 @@ public class LoginActivity extends AppCompatActivity {
         // Store values at the time of the login attempt.
         String username = mUsernameView.getText().toString();
         String password = mPasswordView.getText().toString();
-        //For Testing: System.out.println(username + " " + password);
+        // System.out.println(username + " " + password); (For Testing)
 
         boolean cancel = false;
         View focusView = null;
 
-        // Check for a valid password, if the user entered one.
+        // Checks for a valid password, if the user entered one.
         if (TextUtils.isEmpty(password)) {
             mPasswordView.setError(getString(R.string.error_field_required));
             focusView = mPasswordView;
@@ -238,11 +238,11 @@ public class LoginActivity extends AppCompatActivity {
                     myIntent.putExtra("username", myUser.username);
                     LoginActivity.this.startActivity(myIntent);
 
-                } else if(myUser.username.equals(testUser) && myUser.password.equals(testPass)) {
-                    // To Add Test Account upon typing the correct details
-                    // Will technically only run once as User will then be added and will have an ID which will run the first IF statement afterwards instead
+                } else if (myUser.username.equals(testUser) && myUser.password.equals(testPass)) {
+                    // Adds Test Account immediately upon typing the correct details
+                    // Will only run once as Test User will then be added and will have an ID which will run the first IF statement afterwards instead
                     DBTools dbTools=null;
-                    try{
+                    try {
                         finish();
                         dbTools = new DBTools(mContext);
                         myUser=dbTools.insertUser(myUser);
@@ -259,6 +259,7 @@ public class LoginActivity extends AppCompatActivity {
                         public void onClick(DialogInterface dialog, int which) {
                             switch (which){
                                 case DialogInterface.BUTTON_POSITIVE:
+                                    // Registers new user
                                     DBTools dbTools=null;
                                     try{
                                         finish();
@@ -276,10 +277,9 @@ public class LoginActivity extends AppCompatActivity {
                                     break;
 
                                 case DialogInterface.BUTTON_NEGATIVE:
-                                    /* Will be changed to something more appropriate
-                                    mPasswordView.setError(getString(R.string.error_incorrect_password));
-                                    mPasswordView.requestFocus(); */
-                                    // Perhaps put Toast here to indicate registration cancellation
+                                    // Display Toast message of cancelling registration
+                                    Toast myToast = Toast.makeText(mContext,R.string.registerCancel, Toast.LENGTH_SHORT);
+                                    myToast.show();
                                     break;
                             }
                         }

@@ -12,19 +12,17 @@ public class AboutActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
 
+        // Create custom 'UP' button that works like a physical back button to go back to MainActivity from backstack
+        // otherwise it will crash as no intents are passed back (username info for app bar display)
         // Code adapted from https://stackoverflow.com/a/16961293
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayOptions(ActionBar.DISPLAY_HOME_AS_UP | ActionBar.DISPLAY_SHOW_TITLE);
-
     }
-
-    // End of onCreate
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
     }
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

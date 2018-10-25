@@ -1,7 +1,7 @@
 <resources>
 
     <string name="app_name">J39723 Memory Game</string>
-    <string name="app_title_name" translatable="false">J39723 Memory Game</string>
+    <string name="app_title_name">J39723 Memory Game</string>
 
     <!-- Start of activity_main.xml strings -->
     <string name="new_game_button_text">New Game</string>
@@ -14,20 +14,18 @@
     <!-- End of activity_game.xml strings -->
 
     <!-- Start of action menu items strings -->
-    <string name="action_settings">Settings</string>
     <string name="action_about">About</string>
     <string name="action_logout">Logout</string>
     <!-- End of action menu items strings -->
 
     <!-- Start of activity_about.xml strings -->
     <string name="card1_title_text">About the App</string>
-    <string name="card1_paragraph_text" translatable="false">Replace Text</string>
-    <string name="card2_title_text">About CO5025 Course</string>
-    <string name="card2_paragraph_text" translatable="false">Replace Text</string>
-    <string name="card3_title_text">About App\'s Author</string>
-    <string name="card3_paragraph_text" translatable="false">App was created by Laksamana College of Business, Student 1626491/J39723</string>
+    <string name="card1_paragraph_text">This app contains a simple image matching game, where the goal is to find all the         matching images within the shortest time possible. The person with the shortest time taken to complete the game will be at the top of the leaderboards (Top 10 only).</string>
+    <string name="card2_title_text">About App\'s Author</string>
+    <string name="card2_paragraph_text">This app was created by Student 1626491/J39723 during 2018 with the use         of Android Studio SDK from Laksamana College of Business for the CO5025 - Further Programming and Problem Solving Course.</string>
+    <string name="card3_title_text">Others</string>
+    <string name="card3_paragraph_text">All images and sounds used within this app belongs to their rightful owner.         © Copyright 2018 1626491. No Rights Reserved.</string>
     <!-- End of activity_about.xml strings -->
-
 
 
     <!-- Strings related to login -->
@@ -55,6 +53,7 @@
     <string name="logged_out_text">Logged Out</string>
     <!-- End of ScoreActivity Strings -->
     <string name="welcome_text">Welcome,</string>
+    <string name="registerCancel">Registration Cancelled</string>
 
 
 </resources>

@@ -4,12 +4,10 @@
     <string name="new_game_button_text">Permainan baru</string>
     <string name="score_board_button_text">Papan Skor</string>
     <string name="timer_text">Pemasa:</string>
-    <string name="action_settings">Tetapan</string>
     <string name="action_about">Mengenai</string>
     <string name="action_logout">Log Keluar</string>
     <string name="card1_title_text">Mengenai Aplikasi</string>
-    <string name="card2_title_text">Mengenai Kursus CO5025</string>
-    <string name="card3_title_text">Mengenai Pencipta Aplikasi</string>
+    <string name="card2_title_text">Mengenai Pencipta Aplikasi</string>
     <string name="prompt_email">Pengenalan</string>
     <string name="prompt_password">Kata Laluan</string>
     <string name="action_sign_in_short">Log Masuk</string>
@@ -29,4 +27,10 @@
     <string name="score_empty">Sekarang tiada skor</string>
     <string name="logged_out_text">Log Keluar</string>
     <string name="welcome_text">Selamat datang,</string>
+    <string name="app_title_name">J39723 Memory Game</string>
+    <string name="card3_title_text">Maklumat lain</string>
+    <string name="card1_paragraph_text">" Aplikasi ini mengandungi permainan pencocokan imej yang mudah, di mana matlamatnya adalah untuk mencari semua imej yang sepadan dalam masa yang sesingkat mungkin. Orang yang mempunyai masa terpendek untuk menyelesaikan permainan akan berada di bahagian atas papan pendahulu (Top 10 sahaja)."</string>
+    <string name="card2_paragraph_text">Aplikasi ini telah dicipta oleh Pelajar 1626491 / J39723 semasa 2018 dengan menggunakan Android Studio SDK dari Laksamana College of Business untuk CO5025 - Kursus Pemrograman dan Pemecahan Masalah Lagi.</string>
+    <string name="card3_paragraph_text">Semua imej dan bunyi yang digunakan dalam aplikasi ini adalah milik pemiliknya yang sah. © Hakcipta Terpelihara 2018 1626491. Hak Cipta Terpelihara.</string>
+    <string name="registerCancel">Pendaftaran Dibatalkan</string>
 </resources>

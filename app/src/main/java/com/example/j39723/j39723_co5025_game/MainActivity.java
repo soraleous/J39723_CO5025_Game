@@ -3,8 +3,6 @@ package com.example.j39723.j39723_co5025_game;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -33,16 +31,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         userName = bundle.getString("username");
         // System.out.println(userName); (For Testing)
         setTitle("Welcome, " + userName + "!");
-
-        /* FloatingActionButton disabled for future potential use
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        }); */
 
         newGameButton = findViewById(R.id.new_game_button);
         newGameButton.setOnClickListener(this);
@@ -76,8 +64,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 finish();
                 // End of adapted code
                 return true;
-            case R.id.action_settings :
-                return true;
         }
 
         return super.onOptionsItemSelected(item);
@@ -89,7 +75,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (v.getId()){
             case R.id.new_game_button:
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                builder.setTitle("Choose Button Format")
+                builder.setTitle("Choose Button's Format")
                         .setSingleChoiceItems(gameImages,-1, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {

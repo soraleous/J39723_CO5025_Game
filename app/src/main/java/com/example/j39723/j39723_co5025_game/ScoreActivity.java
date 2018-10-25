@@ -15,7 +15,8 @@ public class ScoreActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_score);
-        // Uses custom actionbar to display 'Up' button to prevent home page from crashing due to lack of intent info for username
+
+        // Uses custom actionbar to display 'UP' button that is override to prevent home page from crashing due to lack of intent info for username
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayOptions(ActionBar.DISPLAY_HOME_AS_UP | ActionBar.DISPLAY_SHOW_TITLE);
 
@@ -25,7 +26,7 @@ public class ScoreActivity extends AppCompatActivity {
         String[] savedScores = scorePrefs.getString("highScores", "").split("\\|");
 
         // Iterate through scores, appending them into a single string with new lines between them except when array is empty
-        // System.out.println(Arrays.toString(savedScores));
+        // System.out.println(Arrays.toString(savedScores)); (For Testing)
         if (Arrays.toString(savedScores).equals("[]")) {
             scoreView.setText(R.string.score_empty);
         } else {
@@ -50,10 +51,9 @@ public class ScoreActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
-            onBackPressed();    //Call the back button's method
+            onBackPressed();    // Calls the back button's method instead
             return true;
         }
         return super.onOptionsItemSelected(item);
     }
-
 }

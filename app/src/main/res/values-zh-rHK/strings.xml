@@ -4,12 +4,10 @@
     <string name="new_game_button_text">新游戏</string>
     <string name="score_board_button_text">记分牌</string>
     <string name="timer_text">时间</string>
-    <string name="action_settings">设置</string>
     <string name="action_logout">登出</string>
     <string name="action_about">关于</string>
     <string name="card1_title_text">关于软件</string>
-    <string name="card3_title_text">关于软件创建者</string>
-    <string name="card2_title_text">关于 CO5025 课程</string>
+    <string name="card2_title_text">关于软件创建者</string>
     <string name="prompt_email">用户名</string>
     <string name="prompt_password">密码</string>
     <string name="action_sign_in_short">登录</string>
@@ -29,4 +27,10 @@
     <string name="leaderboard_title">游戏排行榜</string>
     <string name="logged_out_text">登出</string>
     <string name="welcome_text">欢迎，</string>
+    <string name="app_title_name">J39723 Memory Game</string>
+    <string name="card3_title_text">其他信息</string>
+    <string name="card1_paragraph_text">这个应用程序包含一个简单的图像匹配游戏，其目标是在尽可能短的时间内找到所有匹配的图像。用于完成游戏的最短时间的人将位于排行榜的顶部（仅限前10名）。</string>
+    <string name="card2_paragraph_text">此应用程序由学生1626491 / J39723在2018年创建，使用Laksamana商学院的Android Studio SDK进行CO5025  - 进一步编程和问题解决课程。</string>
+    <string name="card3_paragraph_text">此应用程序中使用的所有图像和声音属于其合法所有者。 ©版权所有2018 1626491. No Rights Reserved。</string>
+    <string name="registerCancel">注册已取消</string>
 </resources>

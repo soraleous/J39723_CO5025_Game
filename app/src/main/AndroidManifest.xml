@@ -16,8 +16,7 @@
         <activity
             android:name=".MainActivity"
             android:label="@string/app_title_name"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <!-- End of MainActivity -->
 
 
@@ -25,33 +24,31 @@
         <activity
             android:name=".GameActivity"
             android:configChanges="orientation|screenSize|keyboardHidden|smallestScreenSize|screenLayout"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <!-- End of GameActivity -->
 
 
         <!-- Start of ScoreActivity -->
         <activity
             android:name=".ScoreActivity"
-            android:label="@string/score_board_title">
-        </activity>
+            android:label="@string/score_board_title"></activity>
         <!-- End of ScoreActivity -->
 
 
         <!-- Start of AboutActivity -->
         <activity
             android:name=".AboutActivity"
-            android:label="@string/action_about">
-        </activity>
+            android:label="@string/action_about"></activity>
         <!-- End of AboutActivity -->
+
 
         <!-- Start of LoginActivity -->
         <activity
             android:name=".LoginActivity"
             android:label="@string/title_activity_login"
-            android:theme="@style/AppTheme.NoActionBar" >
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <!-- End of LoginActivity -->
+
 
         <!-- Start of SplashActivity -->
         <activity
@@ -60,6 +57,7 @@
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
